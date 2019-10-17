@@ -17,7 +17,9 @@ USER root
 RUN mkdir -p /opt/liquibase/ && \
     cd /opt/liquibase/ && \
     curl -L https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.8.0/liquibase-3.8.0-bin.tar.gz | tar xz && \
-    cp /tmp/postgresql-42.2.8.jar /opt/liquibase/lib
+    cp /tmp/postgresql-42.2.8.jar /opt/liquibase/lib && \
+    chown -R jboss:0 ${JBOSS_HOME} && \
+    chmod -R g+rw ${JBOSS_HOME}
 
 
 FROM 1000kit/wildfly
