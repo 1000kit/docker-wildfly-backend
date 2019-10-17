@@ -27,6 +27,11 @@ COPY --chown=jboss:jboss --from=build /opt/jboss/wildfly/standalone/configuratio
 COPY --chown=jboss:jboss --from=build /opt/jboss/wildfly/modules/org /opt/jboss/wildfly/modules/org
 COPY --chown=jboss:jboss --from=build /opt/liquibase/ /opt/liquibase/
 
+USER root
+RUN echo "JBOSS HOME = $JBOSS_HOME" && \
+    chown -R jboss:0 ${JBOSS_HOME} && \
+    chmod -R g+rw ${JBOSS_HOME}
+USER jboss
 # default env vars, override with your own values
 ENV DB_HOST postgresdb
 ENV DB_PORT 5432
